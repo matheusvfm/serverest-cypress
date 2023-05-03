@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/matheusvfm/serverest-cypress#readme",
   "devDependencies": {
-    "cypress": "^8.7.0"
+    "cypress": "^8.7.0",
+    "faker": "^6.6.6"
   }
 }
