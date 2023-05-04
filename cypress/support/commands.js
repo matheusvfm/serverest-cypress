@@ -47,63 +47,11 @@ Cypress.Commands.add('logar', (urlCriarUser,urlLogar,nome,email,password,adminis
     }) 
 })
 
-/* Cypress.Commands.add('logar', (url1,nome,email,password,administrador) => {
-    const emailCriado = email;
-    const senhaCriada = password;
-    cy.request({
-        method: 'POST',
-        url: url1,
-        failOnStatusCode: true,
-        body: {
-            "nome": nome,
-            "email": email,
-            "password": password,
-            "administrador": administrador
-        }
-    }).then('loginReal', (url2) => { //como usar os mesmos argumentos passados na função anterior nessa função?
-        return cy.request({
-            method: 'POST',
-            url: url2,
-            failOnStatusCode: true,
-            body: {
-                "email": emailCriado,
-                "password": senhaCriada
-            }
-        })
-    }) 
-}) */
-
-/* Cypress.Commands.add('createUser', url = '/', (nome, email, password, administrador) => { //como transformar 'url' em parametro?
-    return cy.request({
-        method: 'POST',
-        url: url,
-        failOnStatusCode: false,
-        body: {
-            "nome": nome,
-            "email": email,
-            "password": password,
-            "administrador": administrador
-        }
-    })
-}) */
-
 /* Cypress.Commands.add('buscarUsuarioParaLogin', () => {
     cy.rest('GET', '/usuarios').then( res => {
         return usuarioValido = {
             email: res.body.usuarios[0].email,
             senha: res.body.usuarios[0].password
-        }
-    })
-})
-
-Cypress.Commands.add('logar', (email, senha) => {
-    cy.request({
-        method: 'POST',
-        url: '/login',
-        failOnStatusCode: false,
-        body: {
-            "email": email,
-            "password": senha
         }
     })
 })
