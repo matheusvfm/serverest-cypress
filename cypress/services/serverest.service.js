@@ -15,7 +15,7 @@ export default class Serverest {
 
     //REQUISIÇÕES COM A ROTA /login
     static logarUsuario() {
-        return cy.logar('matheus vitor', 'dff@hotmail.com','senha123','true')
+        return cy.logar(URL_USUARIOS, URL_LOGIN,'matheus vitor', 'dffll@hotmail.com','senha123','true')
     }
 
     /* static cadastrarUsuario(){
@@ -41,9 +41,6 @@ export default class Serverest {
     static cadastrarCarrinho(){
         return cy.registerCart(URL_CARRINHOS, ('idProduto','quantidade')) //Preciso tornar os parâmetros dinâmicos com o Faker //Porque URL não está sendo setada?
     } */
-
-    
-
 
     //AJUSTANDO PARÂMETROS
     /* static logarUsuario() {

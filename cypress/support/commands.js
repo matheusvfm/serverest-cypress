@@ -12,7 +12,7 @@ Cypress.Commands.add('rest', (method = 'GET', url = '/', body = null, failOnStat
     })
 })
 
-Cypress.Commands.add('registerUser', (url,nome,email,password,administrador) => { //como transformar 'url' em parametro?
+Cypress.Commands.add('registerUser', (url,nome,email,password,administrador) => {
     return cy.request({
         method: 'POST',
         url: url,
@@ -26,15 +26,22 @@ Cypress.Commands.add('registerUser', (url,nome,email,password,administrador) => 
     })
 })
 
-Cypress.Commands.add('logar', () => {
-    cy.registerUser(url,nome,email,password,administrador).then('loginReal', (url,email,password) => {
+Cypress.Commands.add('logar', (urlCriarUser,urlLogar,nome,email,password,administrador) => {
+    const emailCriado = email
+    const senhaCriada = password
+    const nomeCriado = nome
+    const admCriado = administrador
+    const urlUsuario = urlCriarUser
+    const urlLogin = urlLogar
+    cy.registerUser(urlUsuario,nomeCriado,emailCriado,senhaCriada,admCriado).then('loginReal', (url) => {
+        //url = urlLogin    ----> Outra possibilidade, deve ser colocado o parâmetro da função 'loginReal' como url também.
         return cy.request({
             method: 'POST',
             url: url,
-            failOnStatusCode: true,
+            failOnStatusCode: false,
             body: {
-                "email": email,
-                "password": password
+                "email": emailCriado,
+                "password": senhaCriada
             }
         })
     }) 
