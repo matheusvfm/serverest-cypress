@@ -46,7 +46,6 @@ Cypress.Commands.add('logar', (urlCriarUser,urlLogar,nome,email,password,adminis
         })
     }) 
 })
-//comentarios sem sentido
 
 /* Cypress.Commands.add('buscarUsuarioParaLogin', () => {
     cy.rest('GET', '/usuarios').then( res => {
