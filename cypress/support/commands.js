@@ -2,8 +2,8 @@ import Serverest from '../services/serverest.service'
 import ValidaServerest from '../services/validaServerest.service'
 import Factory from '../fixtures/factory'
 
-//ROTAS - /usuarios
-Cypress.Commands.add('rest', (method = 'GET', url = '/', body = null, failOnStatusCode = false) => {
+//ROTA rest GERAL (GET-padrão)
+Cypress.Commands.add('rest', ( url = '/', method = 'GET', body = null, failOnStatusCode = false) => { //GET /usuarios
     return cy.request({
         method: method,
         url: url,
@@ -12,7 +12,8 @@ Cypress.Commands.add('rest', (method = 'GET', url = '/', body = null, failOnStat
     })
 })
 
-Cypress.Commands.add('registerUser', (url,nome,email,password,administrador) => {
+//ROTA - /usuarios
+Cypress.Commands.add('registerUser', (url,nome,email,password,administrador) => { //POST /usuarios
     return cy.request({
         method: 'POST',
         url: url,
@@ -26,26 +27,43 @@ Cypress.Commands.add('registerUser', (url,nome,email,password,administrador) => 
     })
 })
 
-Cypress.Commands.add('logar', (urlCriarUser,urlLogar,nome,email,password,administrador) => {
-    const emailCriado = email
-    const senhaCriada = password
-    const nomeCriado = nome
-    const admCriado = administrador
-    const urlUsuario = urlCriarUser
-    const urlLogin = urlLogar
-    cy.registerUser(urlUsuario,nomeCriado,emailCriado,senhaCriada,admCriado).then('loginReal', (url) => {
-        //url = urlLogin    ----> Outra possibilidade, deve ser colocado o parâmetro da função 'loginReal' como url também.
+//ROTA - /login
+Cypress.Commands.add('logar', (urlUsuario,urlLogin,nome,email,password,administrador) => { //POST /login
+    cy.registerUser(urlUsuario,nome,email,password,administrador).then('loginReal', () => {
         return cy.request({
             method: 'POST',
-            url: url,
+            url: urlLogin,
             failOnStatusCode: false,
             body: {
-                "email": emailCriado,
-                "password": senhaCriada
+                "email": email,
+                "password": password
             }
         })
     }) 
 })
+
+//ROTAS - /produtos
+Cypress.Commands.add('registerProduct', (urlUsuario,urlLogin,urlProduto,nome,email,password,nomeProduto,preco,descricao,quantidade,auth) => {
+    cy.logar(urlUsuario,urlLogin,nome,email,password,"true").then('cadastrarProduto', () => {
+        Serverest.salvarBearer(respostaDoCYlogar)
+        return cy.request({
+            method: 'POST',
+            url: urlProduto,
+            header: {
+                authorization: Cypress.env('bearer'),
+            },
+            failOnStatusCode: false,
+            body: {
+                "nome": nomeProduto,
+                "preco": preco,
+                "descricao": descricao,
+                "quantidade": quantidade,
+            }
+        })
+})
+})
+
+
 
 /* Cypress.Commands.add('buscarUsuarioParaLogin', () => {
     cy.rest('GET', '/usuarios').then( res => {

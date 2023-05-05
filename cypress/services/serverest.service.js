@@ -1,52 +1,55 @@
-const URL_USUARIOS  = '/usuarios'
-const URL_LOGIN     = '/login'
-const URL_PRODUTOS  = '/produtos'
-const URL_CARRINHOS = '/carrinhos'
+const URL_USUARIOS = "/usuarios";
+const URL_LOGIN = "/login";
+const URL_PRODUTOS = "/produtos";
+const URL_CARRINHOS = "/carrinhos";
 
 export default class Serverest {
-    //REQUISIÇÕES COM A ROTA /usuarios
-    static buscarUsuarios(){
-        return cy.rest('GET', URL_USUARIOS)
-    }
+  //Preciso tornar os parâmetros dinâmicos com o Faker
+  //REQUISIÇÕES COM O VERBO GET (all, sem _id)
+  static buscarUsuarios() {
+    return cy.rest(URL_USUARIOS);
+  }
 
-    static cadastrarUsuario(){ //GOSTARIA DE FAZER DA FORMA ABAIXO
-        return cy.registerUser(URL_USUARIOS,'matheus vitor', 'dffsss@hotmail.com','senha123','false')
-    }
+  static buscarProdutos() {
+    return cy.rest(URL_PRODUTOS);
+  }
 
-    //REQUISIÇÕES COM A ROTA /login
-    static logarUsuario() {
-        return cy.logar(URL_USUARIOS, URL_LOGIN,'matheus vitor', 'dffll@hotmail.com','senha123','true')
-    }
+  static buscarCarrinhos() {
+    return cy.rest(URL_CARRINHOS);
+  }
 
-    /* static cadastrarUsuario(){
-        return cy.registerUser(URL_USUARIOS, ('nomePessoa','email@email.com', 'descricao', 'adm')) //Preciso tornar os parâmetros dinâmicos com o Faker //Porque URL não está sendo setada?
-    } */
+  //POST /usuarios
+  static cadastrarUsuario() {
+    return cy.registerUser(URL_USUARIOS,"matheus vitor","dffsss@hotmail.com","senha123","false");
+  }
 
-    /* //REQUISIÇÕES COM A ROTA /produtos
+  //POST /login
+  static logarUsuario() {
+    return cy.logar(URL_USUARIOS,URL_LOGIN,"matheus vitor","dff55566666ll@hotmail.com","senha123","true");
+  }
 
-    static buscarProdutos(){
-        return cy.rest('GET', URL_PRODUTOS)
-    }
+  static salvarBearer(resposta){
+    Cypress.env('bearer',resposta.body.authorization.slice(7))
+    //cy.log(">>>>>" + Cypress.env('bearer'))
+  }
 
-    static cadastrarProduto(){
-        return cy.registerProducts(URL_PRODUTOS, ('nomeProduto','preco', 'descricao', 'quantidade')) //Preciso tornar os parâmetros dinâmicos com o Faker //Porque URL não está sendo setada?
-    }
+  //POST /produtos
+  static cadastrarProduto() {
+    return cy.registerProduct(URL_USUARIOS,URL_LOGIN,URL_PRODUTOS,"kurt cobain","kutcobain@gmail.com","senha123","Mouse moderno","25","lorem ipsum","60",cy.salvarBearer);
+  }
 
+  /*
     //REQUISIÇÕES COM A ROTA /carrinhos
-
-    static buscarCarrinhos(){
-        return cy.rest('GET', URL_CARRINHOS)
-    }
-
     static cadastrarCarrinho(){
         return cy.registerCart(URL_CARRINHOS, ('idProduto','quantidade')) //Preciso tornar os parâmetros dinâmicos com o Faker //Porque URL não está sendo setada?
     } */
 
-    //AJUSTANDO PARÂMETROS
-    /* static logarUsuario() {
+  //AJUSTANDO PARÂMETROS
+  /* static logarUsuario() {
         CY.buscarUsuarioParaLogin.then(usuarioValido => {
 
         })
         return cy.logar(emailValido, senhaValida)
-    }*/
+    }
+*/
 }

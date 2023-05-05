@@ -8,8 +8,8 @@ import Factory from "../fixtures/factory";
 describe("Casos de testes sobre a rota /login da API Serverest", () => {
   //POST
   it.only("Deve LOGAR e VALIDAR o usuario que foi cadastrado na Serverest", () => {
-    Serverest.logarUsuario().then( res => {
-      ValidaServerest.validarLogarUsuario(res)
+    Serverest.cadastrarProduto().then( res => {
+      ValidaServerest.validarCadastrarProduto(res)
       //Serverest.salvarBearer(res)
     });
   });

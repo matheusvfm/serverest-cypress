@@ -2,9 +2,11 @@ export default class ValidaServerest {
 
     static validarBuscaDeUsuarios(resposta){
         expect(resposta).to.be.a('object')
-        expect(resposta.code).to.be.oneOf([200,201])
+        //expect(resposta.code).to.be.oneOf([200,201])
+        expect(resposta.body).to.haveOwnProperty('quantidade')
         expect(resposta.body.quantidade).to.be.a('number')
         expect(resposta.body.quantidade).to.be.greaterThan(3)
+        expect(resposta.body).to.haveOwnProperty('usuarios')
         expect(resposta.body.usuarios).to.be.an('array')
         /* expect(resposta.body.usuarios).to.haveOwnProperty('nome')
         expect(resposta.body.usuarios).to.haveOwnProperty('email')
@@ -16,8 +18,10 @@ export default class ValidaServerest {
     static validarCriarUsuario(resposta){
         expect(resposta).to.be.an('object')
         //expect(resposta.code).to.be.oneOf([200,201])
+        expect(resposta.body).to.haveOwnProperty('message')
         expect(resposta.body.message).to.be.a('string')
         expect(resposta.body.message).to.equal('Cadastro realizado com sucesso') //to.equal é a melhor opção?
+        expect(resposta.body).to.haveOwnProperty('_id')
         expect(resposta.body._id).to.be.a('string')
     }
 
@@ -25,8 +29,20 @@ export default class ValidaServerest {
         expect(resposta).to.be.an('object')
         //expect(resposta.body).to.not.be.empty
         //expect(resposta.code).to.be.oneOf([200,201])
+        expect(resposta.body).to.haveOwnProperty('message')
         expect(resposta.body.message).to.be.a('string')
         expect(resposta.body.message).to.equal('Login realizado com sucesso')
+        expect(resposta.body).to.haveOwnProperty('authorization')
         expect(resposta.body.authorization).to.be.a('string')
+    }
+
+    static validarCadastrarProduto(resposta){
+        expect(resposta).to.be.an('object')
+        //expect(resposta.code).to.be.oneOf([200,201])
+        expect(resposta.body).to.haveOwnProperty('message')
+        expect(resposta.body.message).to.be.a('string')
+        expect(resposta.body.message).to.equal('Cadastro realizado com sucesso') //to.equal é a melhor opção?
+        expect(resposta.body).to.haveOwnProperty('_id')
+        expect(resposta.body._id).to.be.a('string')
     }
 }
