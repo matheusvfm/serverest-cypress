@@ -1,4 +1,5 @@
-/* const faker = require('faker');
+const faker = require('faker');
+
 export default class Factory {
 
     static gerarProduto() {
@@ -8,9 +9,20 @@ export default class Factory {
             "descricao": faker.commerce.productDesciption(),
             "quantidade": faker.datatype.number()
         }
+    }
+
+    static gerarUsuario() {
+        return {
+            "nome": faker.name.middleName(),
+            "email": faker.interet.email(),
+            "password": faker.internet.password(),
+            "administrador": faker.datatype.boolean()
+        }
 }
 
-static gerarInteiroAleatorio() {
+
+
+/* static gerarInteiroAleatorio() {
     return faker.datatype.number()
-}
 } */
+}

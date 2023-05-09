@@ -1,69 +1,149 @@
-import Serverest from '../services/serverest.service'
-import ValidaServerest from '../services/validaServerest.service'
-import Factory from '../fixtures/factory'
+import Serverest from "../services/serverest.service";
+import ValidaServerest from "../services/validaServerest.service";
+import Factory from "../fixtures/factory";
 
 //ROTA rest GERAL (GET-padrão)
-Cypress.Commands.add('rest', ( url = '/', method = 'GET', body = null, failOnStatusCode = false) => { //GET /usuarios
+Cypress.Commands.add("rest",(url = "/", method = "GET", body = null, failOnStatusCode = false) => {
+    //GET /usuarios
     return cy.request({
         method: method,
         url: url,
         failOnStatusCode: failOnStatusCode,
-        body: body
-    })
-})
+        body: body,
+    });
+  });
+
 
 //ROTA - /usuarios
-Cypress.Commands.add('registerUser', (url,nome,email,password,administrador) => { //POST /usuarios
+Cypress.Commands.add("registerUser",(url, nome, email, password, administrador) => {
+    //POST /usuarios
     return cy.request({
-        method: 'POST',
+        method: "POST",
         url: url,
         failOnStatusCode: false,
         body: {
-            "nome": nome,
-            "email": email,
-            "password": password,
-            "administrador": administrador
-        }
-    })
-})
+            nome: nome,
+            email: email,
+            password: password,
+            administrador: administrador,
+        },
+    });
+});
 
 //ROTA - /login
-Cypress.Commands.add('logar', (urlUsuario,urlLogin,nome,email,password,administrador) => { //POST /login
-    cy.registerUser(urlUsuario,nome,email,password,administrador).then('loginReal', () => {
+Cypress.Commands.add("logar",(urlUsuario, urlLogin, nome, email, password, administrador) => {
+    //POST /login
+    cy.registerUser(urlUsuario, nome, email, password, administrador).then("loginReal",() => {
         return cy.request({
-            method: 'POST',
+            method: "POST",
             url: urlLogin,
             failOnStatusCode: false,
             body: {
-                "email": email,
-                "password": password
-            }
-        })
-    }) 
-})
+                email: email,
+                password: password,
+            },
+        });
+        //Cypress.env('bearer',resposta.body.authorization.slice(7))
+    });
+});
 
 //ROTAS - /produtos
-Cypress.Commands.add('registerProduct', (urlUsuario,urlLogin,urlProduto,nome,email,password,nomeProduto,preco,descricao,quantidade,auth) => {
-    cy.logar(urlUsuario,urlLogin,nome,email,password,"true").then('cadastrarProduto', () => {
-        Serverest.salvarBearer(respostaDoCYlogar)
+//TENTATIVA 1 ✅
+//Cypress.Commands.add("registerProduct",(urlUsuario,urlLogin,urlProduto,nome,email,password) => {
+/* Cypress.Commands.add("registerProduct",(urlUsuario,urlLogin,urlProduto,nome,email,password,nomeProduto,preco,descricao,quantidade) => {
+    var bearerToken
+    cy.logar(urlUsuario, urlLogin, nome, email, password, "true").then(response => {
+        bearerToken = response.body.authorization.slice(7);
+    }).then("cadastrarProduto", () => {
+        let produto = Factory.gerarProduto()
         return cy.request({
-            method: 'POST',
+            method: "POST",
             url: urlProduto,
-            header: {
-                authorization: Cypress.env('bearer'),
-            },
+            failOnStatusCode: true,
+            body: produto,
+            //body: {
+            //    nome: nomeProduto,
+            //    preco: preco,
+            //    descricao: descricao,
+            //    quantidade: quantidade,
+            //},
+            auth:{
+                bearer: bearerToken
+            }
+        });
+    });
+}); */
+
+//TENTATIVA 2 ❌
+/* Cypress.Commands.add("registerProduct",(urlUsuario,urlLogin,urlProduto,nome,email,password,nomeProduto,preco,descricao,quantidade) => {
+    cy.logar(urlUsuario, urlLogin, nome, email, password, "true").then(response => {
+        ("cadastrarProduto", () => {
+        return cy.request({
+            method: "POST",
+            url: urlProduto,
             failOnStatusCode: false,
             body: {
-                "nome": nomeProduto,
-                "preco": preco,
-                "descricao": descricao,
-                "quantidade": quantidade,
+                nome: nomeProduto,
+                preco: preco,
+                descricao: descricao,
+                quantidade: quantidade,
+            },
+            auth:{
+                bearer: response.body.authorization.slice(7)
             }
-        })
-})
-})
+        });
+        });
+    });
+}) */
 
+//TENTATIVA 3 ✅
+/* Cypress.Commands.add("registerProduct",(urlUsuario,urlLogin,urlProduto,nome,email,password) => {
+//Cypress.Commands.add("registerProduct",(urlUsuario,urlLogin,urlProduto,nome,email,password,nomeProduto,preco,descricao,quantidade) => {
+    cy.logar(urlUsuario, urlLogin, nome, email, password, "true").then( res => {
+        Serverest.salvarBearer(res)
+    }).then("cadastrarProduto", () => {
+        let produto = Factory.gerarProduto()
+        return cy.request({
+            method: "POST",
+            url: urlProduto,
+            failOnStatusCode: true,
+            //body: {
+            //    nome: nomeProduto,
+            //    preco: preco,
+            //    descricao: descricao,
+            //    quantidade: quantidade,
+            //},
+            body: produto,
+            auth:{
+                bearer: Cypress.env('bearer')
+            }
+        });
+    });
+}); */
 
+//TENTATIVA 4 ❌
+/* Cypress.Commands.add("registerProduct",(urlUsuario,urlLogin,urlProduto,nome,email,password,nomeProduto,preco,descricao,quantidade) => {
+    cy.logar(urlUsuario, urlLogin, nome, email, password, "true").then( res => {
+        cy.wrap({
+            authorization: res.body.authorization.slice(7)
+        }).as('tokenAdm')
+    }).then("cadastrarProduto", () => {
+        return cy.request({
+            method: "POST",
+            url: urlProduto,
+            failOnStatusCode: true,
+            body: {
+                nome: nomeProduto,
+                preco: preco,
+                descricao: descricao,
+                quantidade: quantidade,
+            },
+            auth:{
+                bearer: cy.get('@tokenAdm')
+            }
+        });
+    });
+}); */
 
 /* Cypress.Commands.add('buscarUsuarioParaLogin', () => {
     cy.rest('GET', '/usuarios').then( res => {
