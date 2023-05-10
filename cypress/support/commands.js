@@ -127,23 +127,23 @@ Cypress.Commands.add("logar",(urlUsuario, urlLogin, nome, email, password, admin
 }) */
 
 //TENTATIVA 3 ✅ MElHOR
-//Cypress.Commands.add("registerProduct",(urlUsuario,urlLogin,urlProduto,nome,email,password) => {
-Cypress.Commands.add("registerProduct",(urlUsuario,urlLogin,urlProduto,nome,email,password,nomeProduto,preco,descricao,quantidade) => {
+Cypress.Commands.add("registerProduct",(urlUsuario,urlLogin,urlProduto,nome,email,password) => {
+//Cypress.Commands.add("registerProduct",(urlUsuario,urlLogin,urlProduto,nome,email,password,nomeProduto,preco,descricao,quantidade) => {
     cy.logar(urlUsuario, urlLogin, nome, email, password, "true").then( res => {
         Serverest.salvarBearer(res)
     }).then("cadastrarProduto", () => {
-        //let produto = Factory.gerarProduto()
+        let produto = Factory.gerarProduto()
         return cy.request({
             method: "POST",
             url: urlProduto,
             failOnStatusCode: true,
-            body: {
+            /* body: {
                 nome: nomeProduto,
                 preco: preco,
                 descricao: descricao,
                 quantidade: quantidade,
-            },
-            //body: produto,
+            }, */
+            body: produto,
             auth:{
                 bearer: Cypress.env('bearer')
             }
@@ -175,7 +175,7 @@ Cypress.Commands.add("registerProduct",(urlUsuario,urlLogin,urlProduto,nome,emai
     });
 }); */
 
-/* //ROTAS - /carrinhos
+//ROTAS - /carrinhos
 Cypress.Commands.add("registerCart",(urlUsuario,urlLogin,urlProduto,UrlCarrinho,nome,email,password,nomeProduto,preco,descricao,quantidade) => {
     var idProduct
     cy.registerProduct(urlUsuario,urlLogin,urlProduto,nome,email,password,nomeProduto,preco,descricao,quantidade).then(response => {
@@ -188,8 +188,10 @@ Cypress.Commands.add("registerCart",(urlUsuario,urlLogin,urlProduto,UrlCarrinho,
             body: {
                 produtos:
                 [
-                    idProduto: idProduct,
-                    quantidade: 1
+                    {
+                        idProduto: idProduct,
+                        quantidade: 1
+                    }
                 ]
             },
             auth:{
@@ -197,7 +199,7 @@ Cypress.Commands.add("registerCart",(urlUsuario,urlLogin,urlProduto,UrlCarrinho,
             }
         });
     });
-}); */
+});
 
 
 

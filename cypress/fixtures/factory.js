@@ -1,4 +1,5 @@
-/* const faker = require('faker');
+//const faker = require('faker');
+import { faker } from '@faker-js/faker'
 
 export default class Factory {
 
@@ -6,7 +7,7 @@ export default class Factory {
         return {
             "nome": faker.commerce.productName(),
             "preco": faker.datatype.number(),
-            "descricao": faker.commerce.productDesciption(),
+            "descricao": faker.commerce.productDescription(),
             "quantidade": faker.datatype.number()
         }
     }
@@ -29,9 +30,7 @@ export default class Factory {
         }
     }
 
-
-
  static gerarInteiroAleatorio() {
     return faker.datatype.number()
 } 
-} */
+}

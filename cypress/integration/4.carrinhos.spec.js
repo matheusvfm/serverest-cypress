@@ -9,7 +9,7 @@ describe("Casos de testes sobre a rota /login da API Serverest", () => {
   //POST
   it("Deve CADASTRAR e VALIDAR o PRODUTO na Serverest", () => {
     Serverest.cadastrarCarrinho().then( res => {
-        ValidaServerest.validarCadastrarCarrinho(res)
+      ValidaServerest.validarCadastrarCarrinho(res)
     });
   });
 

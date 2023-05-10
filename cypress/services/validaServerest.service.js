@@ -88,19 +88,6 @@ export default class ValidaServerest {
         for(let each in carrinhos){
             expect(carrinhos[each]).to.have.property('produtos')
             expect(carrinhos[each].produtos).to.be.an('array')
-            let produtos = carrinhos.body.produtos//erro aqui
-            for(let each in produtos){
-                expect(produtos[each]).to.haveOwnProperty('nome')
-                expect(produtos[each].nome).to.be.a('string')
-                expect(produtos[each]).to.haveOwnProperty('email')
-                expect(produtos[each].email).to.be.a('string')
-                expect(produtos[each]).to.haveOwnProperty('password')
-                expect(produtos[each].password).to.be.a('string')
-                expect(produtos[each]).to.haveOwnProperty('administrador')
-                expect(produtos[each].administrador).to.be.a('string')
-                expect(produtos[each]).to.haveOwnProperty('_id')
-                expect(produtos[each]._id).to.be.a('string')
-            }
             expect(carrinhos[each]).to.have.property('precoTotal')
             expect(carrinhos[each].precoTotal).to.be.a('number')
             expect(carrinhos[each]).to.have.property('quantidadeTotal')
@@ -108,7 +95,16 @@ export default class ValidaServerest {
             expect(carrinhos[each]).to.have.property('idUsuario')
             expect(carrinhos[each].idUsuario).to.be.a('string')
             expect(carrinhos[each]).to.have.property('_id')
-            expect(carrinhos[each]._id).to.have.property('string')
+            expect(carrinhos[each]._id).to.be.a('string')
+            let produtos = resposta.body.carrinhos.produtos//erro aqui
+            for(let cada in produtos){
+                expect(produtos[cada]).to.haveOwnProperty('idProduto')
+                expect(produtos[cada].idProduto).to.be.a('string')
+                expect(produtos[cada]).to.haveOwnProperty('quantidade')
+                expect(produtos[cada].quantidade).to.be.a('number')
+                expect(produtos[cada]).to.haveOwnProperty('precoUnitario')
+                expect(produtos[cada].precoUnitario).to.be.a('number')
+            }
         }
         //expect(resposta.code).to.be.oneOf([200,201])
     }

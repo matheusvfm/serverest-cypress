@@ -7,7 +7,7 @@ import Factory from "../fixtures/factory";
 
 describe("Casos de testes sobre a rota /login da API Serverest", () => {
   //POST
-  it("Deve CADASTRAR e VALIDAR o PRODUTO na Serverest", () => {
+  it.only("Deve CADASTRAR e VALIDAR o PRODUTO na Serverest", () => {
     Serverest.cadastrarProduto().then( res => {
       ValidaServerest.validarCadastrarProduto(res)
       //Serverest.salvarBearer(res)
