@@ -36,8 +36,8 @@ export default class Serverest {
       })
   } */
 
-  //SALVA TOKEN DE AUTHORIZATION DO LOGIN (SEM UTILIZAÇÃO NO MOMENTO)
-  static salvarBearer(resposta){
+  //SALVA TOKEN DE AUTHORIZATION DO LOGIN
+  static salvarBearer(resposta) {
       Cypress.env('bearer',resposta.body.authorization.slice(7))
       cy.log(">>>>>" + Cypress.env('bearer'))
   }
@@ -47,15 +47,13 @@ export default class Serverest {
       //return cy.registerProduct(URL_USUARIOS,URL_LOGIN,URL_PRODUTOS,"kurt cobain","rullkallos2@gmail10.com","senha123","Mouse modernaço v3","25","lorem ipsum","60");
       return cy.registerProduct(URL_USUARIOS,URL_LOGIN,URL_PRODUTOS,"kurt cobain","rullkallos2@gmail10.com","senha123");
   }
+  
+  //POST /carrinhos
+  static cadastrarCarrinho() {
+    return cy.registerCart(URL_USUARIOS,URL_LOGIN,URL_PRODUTOS,URL_CARRINHOS,"kurt cobain","rullkallos15@gmail.com","senha123","Mouse moderno v15","25","lorem ipsum","60")
+  }  
 
-  /*
-    //REQUISIÇÕES COM A ROTA /carrinhos
-    static cadastrarCarrinho(){
-        return cy.registerCart(URL_CARRINHOS, ('idProduto','quantidade')) //Preciso tornar os parâmetros dinâmicos com o Faker //Porque URL não está sendo setada?
-    } */
-
-  //AJUSTANDO PARÂMETROS
-  /* static logarUsuario() {
+  /* static logarUsuario() { //Sem uso no meu código (fins de estudo)
         CY.buscarUsuarioParaLogin.then(usuarioValido => {
 
         })

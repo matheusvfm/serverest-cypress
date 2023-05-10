@@ -1,4 +1,4 @@
-const faker = require('faker');
+/* const faker = require('faker');
 
 export default class Factory {
 
@@ -14,15 +14,24 @@ export default class Factory {
     static gerarUsuario() {
         return {
             "nome": faker.name.middleName(),
-            "email": faker.interet.email(),
+            "email": faker.internet.email(),
             "password": faker.internet.password(),
             "administrador": faker.datatype.boolean()
         }
-}
+    }
+
+    static gerarUsuarioAdm() {
+        return {
+            "nome": faker.name.middleName(),
+            "email": faker.internet.email(),
+            "password": faker.internet.password(),
+            "administrador": "true"
+        }
+    }
 
 
 
-/* static gerarInteiroAleatorio() {
+ static gerarInteiroAleatorio() {
     return faker.datatype.number()
+} 
 } */
-}

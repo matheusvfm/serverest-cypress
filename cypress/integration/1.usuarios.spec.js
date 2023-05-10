@@ -9,7 +9,7 @@ describe("Casos de testes sobre a rota /usuarios da API Serverest", () => {
     //GET
     it("Deve BUSCAR e VALIDAR todos os usuarios cadastrados na Serverest", () => {
         Serverest.buscarUsuarios().then( res => {
-            ValidaServerest.validarBuscaDeUsuarios(res)
+            ValidaServerest.validarBuscarUsuarios(res)
         })
     })
 

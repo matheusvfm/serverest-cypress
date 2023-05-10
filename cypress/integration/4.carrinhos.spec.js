@@ -8,16 +8,16 @@ import Factory from "../fixtures/factory";
 describe("Casos de testes sobre a rota /login da API Serverest", () => {
   //POST
   it("Deve CADASTRAR e VALIDAR o PRODUTO na Serverest", () => {
-    Serverest.cadastrarProduto().then( res => {
-      ValidaServerest.validarCadastrarProduto(res)
-      //Serverest.salvarBearer(res)
+    Serverest.cadastrarCarrinho().then( res => {
+        ValidaServerest.validarCadastrarCarrinho(res)
     });
   });
 
   //GET
-  it("Deve BUSCAR e VALIDAR os PRODUTOS na Serverest", () => {
-    Serverest.buscarProdutos().then( res => {
-      ValidaServerest.validarBuscarProdutos(res)
+  it.only("Deve BUSCAR e VALIDAR os PRODUTOS na Serverest", () => {
+    Serverest.buscarCarrinhos().then( res => {
+      //console.log(res)
+      ValidaServerest.validarBuscarCarrinhos(res)
     });
   });
 
