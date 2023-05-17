@@ -112,14 +112,16 @@ export default class ValidaServerest {
 
     static validarCadastrarCarrinho(resposta){
         expect(resposta).to.be.an('object')
-        expect(resposta.body).to.have.property('produtos')
-        expect(resposta.body.produtos).to.be.an('array')
-        for(let each in produtos){
+        expect(resposta.body).to.have.property('message')
+        expect(resposta.body.message).to.be.an('string')
+        expect(resposta.body).to.have.property('_id')
+        expect(resposta.body._id).to.be.an('string')
+        /* for(let each in produtos){
             expect(produtos[each]).to.have.property('idProduto')
             expect(produtos[each].idProduto).to.be.a('string')
             expect(produtos[each]).to.have.property('quantidade')
             expect(produtos[each].quantidade).to.be.a('number')
-        }
+        } */
         //expect(resposta.code).to.be.oneOf([200,201])
     }
 }

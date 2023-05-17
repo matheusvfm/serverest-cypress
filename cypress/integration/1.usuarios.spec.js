@@ -7,14 +7,14 @@ import Factory from '../fixtures/factory'
 
 describe("Casos de testes sobre a rota /usuarios da API Serverest", () => {
     //GET
-    it("Deve BUSCAR e VALIDAR todos os usuarios cadastrados na Serverest", () => {
+    it("Deve BUSCAR todos os USUARIOS e VALIDAR a resposta da API Serverest", () => {
         Serverest.buscarUsuarios().then( res => {
             ValidaServerest.validarBuscarUsuarios(res)
         })
     })
 
     //POST
-    it.only("Deve CRIAR e VALIDAR o usuario que foi cadastrado na Serverest", () => {
+    it.only("Deve CADASTRAR um USUARIO com dados validos e VALIDAR a resposta da API Serverest", () => {
         Serverest.cadastrarUsuario().then( res => {
             ValidaServerest.validarCriarUsuario(res)
         })
@@ -28,6 +28,7 @@ describe("Casos de testes sobre a rota /usuarios da API Serverest", () => {
         })
     })
     
+    //Exemplo de como verificar o log da resposta do comando em forma de string
     it('Deve validar o comando personalizad', () => {
         cy.rest('GET', '/usuarios').then( res => {
             expect(res).to.be.a('object')

@@ -28,14 +28,6 @@ export default class Serverest {
       return cy.logar(URL_USUARIOS,URL_LOGIN/* ,"matheus vitor","dff55566666ll@hotmail.com","senha123","true" */);
   }
 
-/*   static salvarToken() {
-      cy.logar(URL_USUARIOS,URL_LOGIN,"matheus vitor","dff55566666ll@hotmail.com","senha123","true").then( res => {
-          cy.wrap({
-              authorization: res.body.authorization
-          }).as('tokenAdm')
-      })
-  } */
-
   //SALVA TOKEN DE AUTHORIZATION DO LOGIN
   static salvarBearer(resposta) {
       Cypress.env('bearer',resposta.body.authorization.slice(7))
@@ -44,14 +36,21 @@ export default class Serverest {
 
   //POST /produtos
   static cadastrarProduto() {
-      //return cy.registerProduct(URL_USUARIOS,URL_LOGIN,URL_PRODUTOS,"kurt cobain","rullkallos2@gmail10.com","senha123","Mouse modernaço v3","25","lorem ipsum","60");
-      return cy.registerProduct(URL_USUARIOS,URL_LOGIN,URL_PRODUTOS,"kurt cobain","rullkallos2@gmail10.com","senha123");
+      return cy.registerProduct(URL_USUARIOS,URL_LOGIN,URL_PRODUTOS/* ,"kurt cobain","rullkallos2@gmail10.com","senha123","Mouse modernaço v3","25","lorem ipsum","60" */);
   }
   
   //POST /carrinhos
   static cadastrarCarrinho() {
-    return cy.registerCart(URL_USUARIOS,URL_LOGIN,URL_PRODUTOS,URL_CARRINHOS,"kurt cobain","rullkallos15@gmail.com","senha123","Mouse moderno v15","25","lorem ipsum","60")
+    return cy.registerCart(URL_USUARIOS,URL_LOGIN,URL_PRODUTOS,URL_CARRINHOS/* ,"kurt cobain","rullkallos15@gmail.com","senha123","Mouse moderno v15","25","lorem ipsum","60" */)
   }  
+
+  /* static salvarToken() {
+      cy.logar(URL_USUARIOS,URL_LOGIN,"matheus vitor","dff55566666ll@hotmail.com","senha123","true").then( res => {
+          cy.wrap({
+              authorization: res.body.authorization
+          }).as('tokenAdm')
+      })
+  } */
 
   /* static logarUsuario() { //Sem uso no meu código (fins de estudo)
         CY.buscarUsuarioParaLogin.then(usuarioValido => {

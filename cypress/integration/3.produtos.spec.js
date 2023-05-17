@@ -5,20 +5,18 @@ import ValidaServerest from "../services/validaServerest.service";
 import Factory from "../fixtures/factory";
 // ***********************************************************
 
-describe("Casos de testes sobre a rota /login da API Serverest", () => {
-  //POST
-  it.only("Deve CADASTRAR e VALIDAR o PRODUTO na Serverest", () => {
-    Serverest.cadastrarProduto().then( res => {
-      ValidaServerest.validarCadastrarProduto(res)
-      //Serverest.salvarBearer(res)
-    });
-  });
-
+describe("Casos de testes sobre a rota /produtos da API Serverest", () => {
   //GET
-  it("Deve BUSCAR e VALIDAR os PRODUTOS na Serverest", () => {
+  it("Deve BUSCAR todos os produtos e VALIDAR a resposta da API Serverest", () => {
     Serverest.buscarProdutos().then( res => {
       ValidaServerest.validarBuscarProdutos(res)
     });
   });
 
+  //POST
+  it("Deve CADASTRAR um produto e VALIDAR a resposta da API Serverest", () => {
+    Serverest.cadastrarProduto().then( res => {
+      ValidaServerest.validarCadastrarProduto(res)
+    });
+  });
 });
