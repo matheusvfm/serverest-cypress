@@ -20,12 +20,12 @@ export default class Serverest {
 
   //POST /usuarios
   static cadastrarUsuario() {
-      return cy.registerUser(URL_USUARIOS,"matheus vitor","dffsss@hotmail.com","senha123","false");
+      return cy.registerUser(URL_USUARIOS/* ,"matheus vitor","dffsss@hotmail.com","senha123","false" */);
   }
 
   //POST /login
   static logarUsuario() {
-      return cy.logar(URL_USUARIOS,URL_LOGIN,"matheus vitor","dff55566666ll@hotmail.com","senha123","true");
+      return cy.logar(URL_USUARIOS,URL_LOGIN/* ,"matheus vitor","dff55566666ll@hotmail.com","senha123","true" */);
   }
 
 /*   static salvarToken() {

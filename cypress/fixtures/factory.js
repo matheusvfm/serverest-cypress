@@ -13,11 +13,12 @@ export default class Factory {
     }
 
     static gerarUsuario() {
+        //let adm = faker.datatype.boolean()
         return {
             "nome": faker.name.middleName(),
             "email": faker.internet.email(),
             "password": faker.internet.password(),
-            "administrador": faker.datatype.boolean()
+            "administrador": `${faker.datatype.boolean()}`//quando se chama uma função do faker dentro de uma string necessário utilizar dessa forma.
         }
     }
 

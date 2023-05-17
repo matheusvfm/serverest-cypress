@@ -105,6 +105,7 @@ export default class ValidaServerest {
                 expect(produtos[cada]).to.haveOwnProperty('precoUnitario')
                 expect(produtos[cada].precoUnitario).to.be.a('number')
             }
+            
         }
         //expect(resposta.code).to.be.oneOf([200,201])
     }

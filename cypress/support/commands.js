@@ -16,48 +16,46 @@ Cypress.Commands.add("rest",(url = "/", method = "GET", body = null, failOnStatu
 
 //ROTA - /usuarios
 //Cypress.Commands.add("registerUser",(url) => {
-Cypress.Commands.add("registerUser",(url, nome, email, password, administrador) => {
+Cypress.Commands.add("registerUser",(url/* , nome, email, password, administrador */) => {
     //POST /usuarios
-    //let usuario = Factory.gerarUsuario()
+    let randomUser = Factory.gerarUsuario()
+    cy.writeFile('./cypress/fixtures/usuario.json',randomUser)
     return cy.request({
         method: "POST",
         url: url,
         failOnStatusCode: false,
-        body: {
-            "nome": nome,
-            "email": email,
-            "password": password,
-            "administrador": administrador,
-        },
-        //body: usuario
+        body: randomUser,
     });
 });
 
 Cypress.Commands.add("registerUserAdm",(url) => {
     //POST /usuarios
-    let usuario = Factory.gerarUsuarioAdm()
+    let randomUserAdm = Factory.gerarUsuarioAdm()
     return cy.request({
         method: "POST",
         url: url,
         failOnStatusCode: false,
-        body: usuario
+        body: randomUserAdm
     });
 });
 
 //ROTA - /login
-Cypress.Commands.add("logar",(urlUsuario, urlLogin, nome, email, password, administrador) => {
+Cypress.Commands.add("logar",(urlUsuario, urlLogin/* , nome, email, password, administrador */) => {
     //POST /login
-    cy.registerUser(urlUsuario, nome, email, password, administrador).then("loginReal",() => {
+    cy.registerUser(urlUsuario/* , nome, email, password, administrador */).then("loginReal",() => {
+        cy.fixture('usuario.json').then( res => {
+            let usuarioCriado = {
+                email: res.email,
+                password: res.password
+            }
+        })
         return cy.request({
             method: "POST",
             url: urlLogin,
             failOnStatusCode: false,
-            body: {
-                "email": email,
-                "password": password,
-            },
+            body: usuarioCriado,  //está vindo vazio
         });
-        //Cypress.env('bearer',resposta.body.authorization.slice(7))
+        //Cypress.env('bearer',resposta.body.authorization.slice(7))  ---> possibilidade de atribuir aqui ao invés de utilizar o método salvarBearer do serverest.service.
     });
 });
 
